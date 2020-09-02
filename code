@@ -1,0 +1,122 @@
+library(shiny)
+
+
+ui1<-fluidPage(
+  titlePanel('COV_19'),
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+      plotOutput(outputId = "Plot"),
+    )
+  )
+)
+
+library(shiny)
+
+
+server1 <- function(input, output){
+  output$Plot <- renderPlot({
+    ggplot(data =COV_19, aes(x = date, y = positiveIncrease, group=1))+ geom_line()+ scale_x_date(date_breaks = "30 day")+ theme_grey()
+  })
+}
+
+#########
+# Define UI for miles per gallon application
+ui2<-fluidPage(
+  titlePanel('Advanced Micro Devices, Inc. vs time'),
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+      plotOutput(outputId = "Plot"),
+    )
+  )
+)
+
+server2 <- function(input, output){
+  output$Plot <- renderPlot({
+    ggplot(data =X10_companies, aes(x = Date, y = A, group=1))+ geom_line()+ scale_x_date(date_breaks = "30 day")+ theme_grey()
+  })
+}
+
+######
+# Define UI for miles per gallon application
+ui3<-fluidPage(
+  titlePanel('American Airlines Group Inc. vs time'),
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+      plotOutput(outputId = "Plot"),
+    )
+  )
+)
+
+server3 <- function(input, output){
+  output$Plot <- renderPlot({
+    ggplot(data =X10_companies, aes(x = Date, y = A, group=1))+ geom_line()+ scale_x_date(date_breaks = "30 day")+ theme_grey()
+  })
+}
+
+######
+# Define UI for miles per gallon application
+ui4<-fluidPage(
+  titlePanel('AT&T Inc vs time'),
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+      plotOutput(outputId = "Plot"),
+    )
+  )
+)
+
+server4 <- function(input, output){
+  output$Plot <- renderPlot({
+    ggplot(data =X10_companies, aes(x = Date, y = A, group=1))+ geom_line()+ scale_x_date(date_breaks = "30 day")+ theme_grey()
+  })
+}
+######
+> data<-data.frame(date=COV_19_index$date, AMD=Advanced_Micro_Devices_Inc_$A,AAG=American_Airlines_Group_Inc_$B,AT=AT_T_Inc$C,deathIncrease=COV_19_index$deathIncrease,positiveIncrease=COV_19_index$positiveIncrease,hospitalized=COV_19_index$hospitalized)
+ui4= fluidPage(
+  titlePanel("COV_19_index"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("COV_19",
+                  "Select Data:",
+                  choices = c("deathIncrease", 
+                              "positiveIncrease",
+                              "hospitalized"),
+                  selected = "deathIncrease"),
+      selectInput("stock",
+                  "Select Stock:",
+                  choices = c("AMD", 
+                              "AAG",
+                              "AT"),
+                  selected = "AT"
+                  
+      )
+    ),
+    mainPanel( 
+     
+      plotOutput("plot1")
+      
+    )
+  ) 
+)
+
+
+ server4 = function(input, output) {
+    
+    
+    output$plot1<-renderPlot({
+      data1 <- data[, c(input$stock, input$COV_19)]
+      colnames(data1) <- c("col1", "col2")
+      ggplot(data1,aes(x=col1,y=col2)) +
+        geom_line(colour='blue') +
+        labs(x = input$stock, y = input$COVID)
+    })
+  }
+  
+ 
